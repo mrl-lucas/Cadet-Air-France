@@ -179,6 +179,48 @@
   .progress-top .pbar i{display:block;height:100%;background:var(--green);border-radius:5px;transition:width .3s}
   .progress-top .pn{font-family:var(--mono);font-size:12px;color:var(--green)}
 
+
+  /* ===== PROGRAMME ADAPTATIF ===== */
+  .phasebar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin-bottom:14px;
+    background:linear-gradient(180deg,var(--panel2),var(--panel));position:relative;overflow:hidden}
+  .phasebar:before{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+    background:repeating-linear-gradient(90deg,var(--amber) 0 22px,transparent 22px 44px);opacity:.4}
+  .ph-name{font-size:19px;font-weight:800;margin-top:2px}
+  .ph-desc{font-size:12.5px;color:var(--muted);max-width:640px;margin-top:3px}
+  .wknav{display:flex;gap:6px;align-items:center}
+  .wbtn{font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--raised);
+    border:1px solid var(--line2);border-radius:8px;padding:6px 12px;cursor:pointer}
+  .wbtn:hover{border-color:var(--amber);color:var(--amber)}
+  .focusrow{margin:12px 0 16px;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .focusit{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:4px 9px;color:var(--ink);font-size:12px}
+  .daycard{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:12px 15px;margin-bottom:10px}
+  .daycard.today{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber),0 0 26px rgba(230,169,42,.12)}
+  .daycard.past{opacity:.55}
+  .day-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
+  .dn2{font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber)}
+  .dtot{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+  .blk{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px dashed var(--line)}
+  .blk:first-of-type{border-top:none}
+  .blk input[type=checkbox]{margin-top:3px;width:15px;height:15px;accent-color:var(--green);cursor:pointer;flex:none}
+  .blk .dur{font-family:var(--mono);font-size:10.5px;color:var(--amber);min-width:32px;margin-top:2px;flex:none}
+  .blk .bmain{flex:1;min-width:0}
+  .blk .kind{font-family:var(--mono);font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint)}
+  .blk .bt{font-size:13px;margin-top:1px}
+  .blk.done .bt{text-decoration:line-through;opacity:.5}
+  .blk .chips{margin-top:3px}
+  .rz{display:inline-block;font-family:var(--mono);font-size:9.5px;padding:1px 8px;border-radius:99px;margin:2px 5px 0 0}
+  .rz.red{background:var(--red-dim);color:var(--red)}
+  .rz.amber{background:var(--amber-dim);color:var(--amber)}
+  .rz.green{background:var(--green-dim);color:var(--green)}
+  .rz.gold{background:rgba(230,169,42,.24);color:#F2C14E}
+  .today-sess{margin-bottom:14px;border-color:var(--line2)}
+  .ts-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+  .ts-meta{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+  .ts-foot{margin-top:10px}
+  .golink{font-family:var(--mono);font-size:11px;color:var(--amber);cursor:pointer}
+  .golink:hover{text-decoration:underline}
+
   .note{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:18px;line-height:1.7}
   .foot{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   .reset{cursor:pointer;color:var(--faint)} .reset:hover{color:var(--red)}
@@ -211,10 +253,9 @@
 
   <nav id="tabs">
     <button class="tab active" data-view="dash">Tableau de bord</button>
+    <button class="tab" data-view="prog">Programme</button>
     <button class="tab" data-view="psy0">PSY0</button>
     <button class="tab" data-view="psy1">PSY1</button>
-    <button class="tab" data-view="tips">Astuces</button>
-    <button class="tab" data-view="cours">Culture aéro</button>
     <button class="tab" data-view="plan">Planning</button>
     <button class="tab" data-view="check">Check-list</button>
   </nav>
@@ -222,14 +263,14 @@
   <section class="panel-view active" id="view-dash"></section>
   <section class="panel-view" id="view-psy0"></section>
   <section class="panel-view" id="view-psy1"></section>
-  <section class="panel-view" id="view-tips"></section>
-  <section class="panel-view" id="view-cours"></section>
+  <section class="panel-view" id="view-prog"></section>
   <section class="panel-view" id="view-plan"></section>
   <section class="panel-view" id="view-check"></section>
 
   <div class="foot">
-    <span>Notation en classe stanine (1–9) · objectif : classe 7 sur chaque test.</span>
-    <span class="reset" id="resetAll">↺ Tout réinitialiser</span>
+    <span>Notation en classe stanine (1–9) · objectif : classe 7 partout. Le programme se recalcule à chaque score saisi.</span>
+    <span><span class="reset" id="expBtn" style="color:var(--amber)">⬇ Exporter</span> · <span class="reset" id="impBtn" style="color:var(--amber)">⬆ Importer</span> · <span class="reset" id="resetAll">↺ Tout réinitialiser</span></span>
+    <input type="file" id="impFile" accept=".json,application/json" style="display:none">
   </div>
 </div>
 
@@ -237,47 +278,48 @@
 /* ============ DONNÉES EXERCICES ============ */
 const BASE="https://www.pilotest.com";
 const PSY0=[
- {id:"p0_series",n:"Séries logiques",d:"Logique",u:"/fr/tests/series_psy0_af",t:"Identifie le type de règle (arithmétique, alternance, symétrie) et vérifie 2–3 hypothèses avant de répondre. Jamais au hasard."},
- {id:"p0_airways",n:"Airways",d:"Logique",u:"/fr/tests/airways",t:"Travaille ta représentation mentale des trajectoires et anticipe les croisements. Vitesse sans sacrifier la précision."},
- {id:"p0_billes",n:"Billes",d:"Logique",u:"/fr/tests/billes",t:"Visualise les déplacements/échanges étape par étape ; pose des repères mentaux pour ne pas te perdre."},
- {id:"p0_fg2",n:"Formes glissées II",d:"Spatiale",u:"/fr/tests/formes_glissees2",t:"Décompose le mouvement de glissement et repère l'élément invariant entre les figures."},
- {id:"p0_empil",n:"Empilements",d:"Spatiale",u:"/fr/tests/empilements",t:"Compte méthodiquement les blocs cachés (derrière/dessous) ; vérifie les faces non visibles."},
- {id:"p0_obj3d",n:"Objets 3D",d:"Spatiale",u:"/fr/tests/objets3d",t:"Entraîne la rotation mentale : choisis un point de référence et fais tourner l'objet autour."},
- {id:"p0_cubes",n:"Cubes 2D/3D (psy0 AF)",d:"Spatiale",u:"/fr/tests/cubes_psy0",t:"Maîtrise le passage patron↔cube et mémorise les faces opposées."},
- {id:"p0_pairimpair",n:"Pair ou impair",d:"Attention",u:"/fr/tests/pair_ou_impair",t:"Automatise la parité et ne te laisse pas piéger par la double consigne. Rythme régulier."},
- {id:"p0_motsur2",n:"Un mot sur deux",d:"Attention",u:"/fr/tests/un_mot_sur_deux",t:"Maintiens un rythme de lecture alternée constant ; ne perds jamais le fil."},
- {id:"p0_formescoul",n:"Formes et couleurs",d:"Attention",u:"/fr/tests/formes",t:"Double tâche : fixe une règle de priorité claire et tiens-la jusqu'au bout."},
- {id:"p0_grillescalc",n:"Grilles de calculs",d:"Numérique",u:"/fr/tests/grille_calculs",t:"Calcul mental rapide : repère les raccourcis (compléments à 10, doublages)."},
- {id:"p0_boites",n:"Boîtes à mots",d:"Verbale",u:"/fr/tests/boxes",t:"Élargis ton vocabulaire et cherche vite les liens sémantiques."},
- {id:"p0_etoile",n:"Mots en étoile",d:"Verbale",u:"/fr/tests/mots_en_etoile",t:"Travaille l'agilité lexicale et la reconnaissance d'anagrammes."},
- {id:"p0_m2back",n:"M2 Back numérique",d:"Mémoire",u:"/fr/tests/m2back_numerique",t:"Mémoire de travail : répète mentalement la séquence glissante. Commence lentement, accélère."},
- {id:"p0_psychomot",n:"Psychomoteur psy0 AF",d:"Psychomoteur",u:"/fr/tests/psychomot0",t:"Anticipe la trajectoire plutôt que de réagir ; reste détendu et entraîne-toi régulièrement."},
- {id:"p0_anglais",n:"Anglais présélection",d:"Anglais",u:"/fr/tests/english",t:"Révise grammaire + vocabulaire courant et aéronautique. Lis/écoute en anglais chaque jour."},
+ {id:"p0_series",w:3,n:"Séries logiques",d:"Logique",u:"/fr/tests/series_psy0_af",t:"Identifie le type de règle (arithmétique, alternance, symétrie) et vérifie 2–3 hypothèses avant de répondre. Jamais au hasard."},
+ {id:"p0_airways",w:2,n:"Airways",d:"Logique",u:"/fr/tests/airways",t:"Travaille ta représentation mentale des trajectoires et anticipe les croisements. Vitesse sans sacrifier la précision."},
+ {id:"p0_billes",w:1,n:"Billes",d:"Logique",u:"/fr/tests/billes",t:"Visualise les déplacements/échanges étape par étape ; pose des repères mentaux pour ne pas te perdre."},
+ {id:"p0_fg2",w:1,n:"Formes glissées II",d:"Spatiale",u:"/fr/tests/formes_glissees2",t:"Décompose le mouvement de glissement et repère l'élément invariant entre les figures."},
+ {id:"p0_empil",w:2,n:"Empilements",d:"Spatiale",u:"/fr/tests/empilements",t:"Compte méthodiquement les blocs cachés (derrière/dessous) ; vérifie les faces non visibles."},
+ {id:"p0_obj3d",w:2,n:"Objets 3D",d:"Spatiale",u:"/fr/tests/objets3d",t:"Entraîne la rotation mentale : choisis un point de référence et fais tourner l'objet autour."},
+ {id:"p0_cubes",w:3,n:"Cubes 2D/3D (psy0 AF)",d:"Spatiale",u:"/fr/tests/cubes_psy0",t:"Maîtrise le passage patron↔cube et mémorise les faces opposées."},
+ {id:"p0_pairimpair",w:2,n:"Pair ou impair",d:"Attention",u:"/fr/tests/pair_ou_impair",t:"Automatise la parité et ne te laisse pas piéger par la double consigne. Rythme régulier."},
+ {id:"p0_motsur2",w:2,n:"Un mot sur deux",d:"Attention",u:"/fr/tests/un_mot_sur_deux",t:"Maintiens un rythme de lecture alternée constant ; ne perds jamais le fil."},
+ {id:"p0_formescoul",w:2,n:"Formes et couleurs",d:"Attention",u:"/fr/tests/formes",t:"Double tâche : fixe une règle de priorité claire et tiens-la jusqu'au bout."},
+ {id:"p0_grillescalc",w:3,n:"Grilles de calculs",d:"Numérique",u:"/fr/tests/grille_calculs",t:"Calcul mental rapide : repère les raccourcis (compléments à 10, doublages)."},
+ {id:"p0_boites",w:1,n:"Boîtes à mots",d:"Verbale",u:"/fr/tests/boxes",t:"Élargis ton vocabulaire et cherche vite les liens sémantiques."},
+ {id:"p0_etoile",w:1,n:"Mots en étoile",d:"Verbale",u:"/fr/tests/mots_en_etoile",t:"Travaille l'agilité lexicale et la reconnaissance d'anagrammes."},
+ {id:"p0_m2back",w:3,n:"M2 Back numérique",d:"Mémoire",u:"/fr/tests/m2back_numerique",t:"Mémoire de travail : répète mentalement la séquence glissante. Commence lentement, accélère."},
+ {id:"p0_psychomot",w:3,n:"Psychomoteur psy0 AF",d:"Psychomoteur",u:"/fr/tests/psychomot0",t:"Anticipe la trajectoire plutôt que de réagir ; reste détendu et entraîne-toi régulièrement."},
+ {id:"p0_anglais",w:3,n:"Anglais présélection",d:"Anglais",u:"/fr/tests/english",t:"Révise grammaire + vocabulaire courant et aéronautique. Lis/écoute en anglais chaque jour."},
+ {id:"p0_culture",w:3,n:"Culture aéronautique",d:"Culture aéro",u:null,t:"Priorité absolue aux annales 2020/2022 (pool de questions réutilisé). Fais un quiz d'annales en conditions, puis auto-évalue-toi en classe 1–9 ici : le programme s'adapte."},
  {id:"p0_culture",n:"Culture aéronautique",d:"Culture aéro",u:"/fr/blog/test_culture_aeronautique_cadets_air_france",t:"Bases : constructeurs, principes de vol, histoire d'Air France, métier de pilote, actualité du secteur."},
 ];
 const PSY1=[
- {id:"p1_maths",n:"Mathématiques",d:"Numérique",u:"/fr/tests/mathematiques",t:"Brouillon autorisé : pose tes calculs. Révise fractions, %, proportions, vitesse·temps·distance."},
- {id:"p1_cm1",n:"Calcul mental 1",d:"Numérique",u:"/fr/tests/calcul_mental1",t:"Drille le calcul mental quotidien ; automatise tables et compléments. Précision avant vitesse."},
- {id:"p1_cm2",n:"Calcul mental 2",d:"Numérique",u:"/fr/tests/calcul_mental2",t:"Même logique : régularité quotidienne, raccourcis de calcul, zéro réponse au hasard."},
- {id:"p1_cm3",n:"Calcul mental 3",d:"Numérique",u:"/fr/tests/calcul_mental3",t:"Augmente progressivement la difficulté ; vise la justesse puis la cadence."},
- {id:"p1_cm4",n:"Calcul mental 4",d:"Numérique",u:"/fr/tests/calcul_mental4",t:"Le plus exigeant : enchaîne des sessions courtes et fréquentes."},
- {id:"p1_compteurs",n:"Test des compteurs",d:"Attention",u:"/fr/tests/compteurs",t:"Lis vite et juste plusieurs cadrans ; entraîne le balayage visuel systématique."},
- {id:"p1_voit_seq",n:"Voitures (séquentiel)",d:"Numérique",u:"/fr/tests/voitures",t:"Suis la logique de déplacement entièrement en mental — interdit de s'aider des mains le jour J."},
- {id:"p1_voit_bas",n:"Voitures (basique)",d:"Numérique",u:"/fr/tests/voitures_basic",t:"Pose la version basique avant la séquentielle pour ancrer la mécanique."},
- {id:"p1_angles",n:"Angles",d:"Spatiale",u:"/fr/tests/angles",t:"Estime vite : utilise 0/45/90/180 comme repères de référence."},
- {id:"p1_patrons",n:"Patrons de cubes (cadets AF)",d:"Spatiale",u:"/fr/tests/cubes_psy1_cadets",t:"Maîtrise faces opposées et adjacentes ; entraîne le pliage mental du patron."},
- {id:"p1_orient",n:"Orientation spatiale (VLR)",d:"Spatiale",u:"/fr/tests/spatial_orientation",t:"Place-toi dans le repère de l'objet ; attention au gauche/droite quand l'orientation change."},
- {id:"p1_tangram",n:"Tangram",d:"Spatiale",u:"/fr/tests/tangram",t:"Brouillon autorisé : décompose la forme cible en pièces et procède par élimination."},
- {id:"p1_efg",n:"EFG",d:"Logique",u:"/fr/tests/efg",t:"Repère la règle logique sous-jacente et vérifie-la sur plusieurs exemples."},
- {id:"p1_raven",n:"Matrices de Raven (APM)",d:"Logique",u:"/fr/tests/apm",t:"Analyse lignes ET colonnes, identifie la transformation, élimine les distracteurs."},
- {id:"p1_att1",n:"Attention 1",d:"Attention",u:"/fr/tests/attention1",t:"Concentration soutenue : ne décroche pas sur la durée, garde un rythme stable."},
- {id:"p1_att2",n:"Attention 2",d:"Attention",u:"/fr/tests/attention2",t:"Gère la double tâche sans paniquer ; une erreur ne doit pas en entraîner d'autres."},
- {id:"p1_att3",n:"Attention 3",d:"Attention",u:"/fr/tests/attention3",t:"Le plus dense : travaille l'endurance attentionnelle en fin de session."},
- {id:"p1_m3back",n:"Memory 3 Back",d:"Mémoire",u:"/fr/tests/m3back",t:"Cœur de la mémoire de travail. Commence ici avant de monter en 4/5 back."},
- {id:"p1_m4back",n:"Memory 4 Back",d:"Mémoire",u:"/fr/tests/m4back",t:"Technique de répétition/chunking ; progresse régulièrement, sans brûler les étapes."},
- {id:"p1_m5back",n:"Memory 5 Back",d:"Mémoire",u:"/fr/tests/m5back",t:"Le plus dur : à travailler une fois le 3/4 back stabilisés."},
- {id:"p1_lecture",n:"Lecture de textes",d:"Verbale",u:"/fr/tests/francais",t:"Lecture rapide + compréhension : repère l'info clé, ne relis pas tout."},
- {id:"p1_psychomot",n:"Psychomoteur ENAC",d:"Psychomoteur",u:"/fr/tests/psychomot",t:"Deux joysticks = double tâche motrice. Anticipe, garde un geste souple, entraîne-toi régulièrement."},
+ {id:"p1_maths",w:3,n:"Mathématiques",d:"Numérique",u:"/fr/tests/mathematiques",t:"Brouillon autorisé : pose tes calculs. Révise fractions, %, proportions, vitesse·temps·distance."},
+ {id:"p1_cm1",w:2,n:"Calcul mental 1",d:"Numérique",u:"/fr/tests/calcul_mental1",t:"Drille le calcul mental quotidien ; automatise tables et compléments. Précision avant vitesse."},
+ {id:"p1_cm2",w:2,n:"Calcul mental 2",d:"Numérique",u:"/fr/tests/calcul_mental2",t:"Même logique : régularité quotidienne, raccourcis de calcul, zéro réponse au hasard."},
+ {id:"p1_cm3",w:2,n:"Calcul mental 3",d:"Numérique",u:"/fr/tests/calcul_mental3",t:"Augmente progressivement la difficulté ; vise la justesse puis la cadence."},
+ {id:"p1_cm4",w:2,n:"Calcul mental 4",d:"Numérique",u:"/fr/tests/calcul_mental4",t:"Le plus exigeant : enchaîne des sessions courtes et fréquentes."},
+ {id:"p1_compteurs",w:2,n:"Test des compteurs",d:"Attention",u:"/fr/tests/compteurs",t:"Lis vite et juste plusieurs cadrans ; entraîne le balayage visuel systématique."},
+ {id:"p1_voit_seq",w:2,n:"Voitures (séquentiel)",d:"Numérique",u:"/fr/tests/voitures",t:"Suis la logique de déplacement entièrement en mental — interdit de s'aider des mains le jour J."},
+ {id:"p1_voit_bas",w:1,n:"Voitures (basique)",d:"Numérique",u:"/fr/tests/voitures_basic",t:"Pose la version basique avant la séquentielle pour ancrer la mécanique."},
+ {id:"p1_angles",w:2,n:"Angles",d:"Spatiale",u:"/fr/tests/angles",t:"Estime vite : utilise 0/45/90/180 comme repères de référence."},
+ {id:"p1_patrons",w:3,n:"Patrons de cubes (cadets AF)",d:"Spatiale",u:"/fr/tests/cubes_psy1_cadets",t:"Maîtrise faces opposées et adjacentes ; entraîne le pliage mental du patron."},
+ {id:"p1_orient",w:2,n:"Orientation spatiale (VLR)",d:"Spatiale",u:"/fr/tests/spatial_orientation",t:"Place-toi dans le repère de l'objet ; attention au gauche/droite quand l'orientation change."},
+ {id:"p1_tangram",w:2,n:"Tangram",d:"Spatiale",u:"/fr/tests/tangram",t:"Brouillon autorisé : décompose la forme cible en pièces et procède par élimination."},
+ {id:"p1_efg",w:2,n:"EFG",d:"Logique",u:"/fr/tests/efg",t:"Repère la règle logique sous-jacente et vérifie-la sur plusieurs exemples."},
+ {id:"p1_raven",w:3,n:"Matrices de Raven (APM)",d:"Logique",u:"/fr/tests/apm",t:"Analyse lignes ET colonnes, identifie la transformation, élimine les distracteurs."},
+ {id:"p1_att1",w:2,n:"Attention 1",d:"Attention",u:"/fr/tests/attention1",t:"Concentration soutenue : ne décroche pas sur la durée, garde un rythme stable."},
+ {id:"p1_att2",w:2,n:"Attention 2",d:"Attention",u:"/fr/tests/attention2",t:"Gère la double tâche sans paniquer ; une erreur ne doit pas en entraîner d'autres."},
+ {id:"p1_att3",w:2,n:"Attention 3",d:"Attention",u:"/fr/tests/attention3",t:"Le plus dense : travaille l'endurance attentionnelle en fin de session."},
+ {id:"p1_m3back",w:3,n:"Memory 3 Back",d:"Mémoire",u:"/fr/tests/m3back",t:"Cœur de la mémoire de travail. Commence ici avant de monter en 4/5 back."},
+ {id:"p1_m4back",w:2,n:"Memory 4 Back",d:"Mémoire",u:"/fr/tests/m4back",t:"Technique de répétition/chunking ; progresse régulièrement, sans brûler les étapes."},
+ {id:"p1_m5back",w:1,n:"Memory 5 Back",d:"Mémoire",u:"/fr/tests/m5back",t:"Le plus dur : à travailler une fois le 3/4 back stabilisés."},
+ {id:"p1_lecture",w:2,n:"Lecture de textes",d:"Verbale",u:"/fr/tests/francais",t:"Lecture rapide + compréhension : repère l'info clé, ne relis pas tout."},
+ {id:"p1_psychomot",w:3,n:"Psychomoteur ENAC",d:"Psychomoteur",u:"/fr/tests/psychomot",t:"Deux joysticks = double tâche motrice. Anticipe, garde un geste souple, entraîne-toi régulièrement."},
 ];
 const ALL=[...PSY0,...PSY1];
 const DIM_ORDER=["Logique","Spatiale","Numérique","Verbale","Attention","Mémoire","Psychomoteur","Anglais","Culture aéro"];
@@ -316,12 +358,12 @@ const CHECK_ITEMS=[
 
 /* ============ PERSISTANCE (localStorage + secours mémoire) ============ */
 const KEY="af_cadet_tracker_v1";
-let DB={scores:{},check:{},medical:""};
+let DB={scores:{},check:{},medical:"",done:{}};
 let memFallback=false;
 function load(){
   try{const r=localStorage.getItem(KEY); if(r){DB=JSON.parse(r);} }
   catch(e){memFallback=true;}
-  DB.scores=DB.scores||{}; DB.check=DB.check||{}; if(DB.medical==null)DB.medical="";
+  DB.scores=DB.scores||{}; DB.check=DB.check||{}; DB.done=DB.done||{}; if(DB.medical==null)DB.medical="";
   // valeurs par défaut de la check-list au 1er lancement
   if(!DB._init){ CHECK_ITEMS.forEach(c=>{ if(c.def)DB.check[c.id]=true; }); DB._init=true; save(); }
 }
@@ -365,7 +407,7 @@ function exCard(x){
   return `<div class="card">
     <div class="ttop">
       <div class="xname">${x.n}</div>
-      <a class="xlink" href="${BASE}${x.u}" target="_blank" rel="noopener">ouvrir ↗</a>
+      ${x.u?`<a class="xlink" href="${BASE}${x.u}" target="_blank" rel="noopener">ouvrir ↗</a>`:`<span class="xlink" style="opacity:.5;cursor:default">annales & fiches</span>`}
     </div>
     <div class="gauge">${segs}</div>
     <div class="readout">
@@ -413,7 +455,7 @@ function renderDash(){
   const tested=ALL.filter(x=>best(x.id)!=null).length;
   const atTarget=ALL.filter(x=>best(x.id)!=null&&best(x.id)>=7).length;
 
-  document.getElementById("view-dash").innerHTML=`
+  document.getElementById("view-dash").innerHTML=todayCard()+`
     <div class="dash-grid">
       <div class="block">
         <h3>Niveau par dimension</h3>
@@ -448,129 +490,238 @@ function renderDash(){
     <p class="note">Astuce : note ta classe après chaque session sur Pilotest. Le tableau recalcule tes priorités tout seul — concentre ton temps sur le rouge et l'orange, et maintiens le vert.</p>`;
 }
 
-/* ============ RENDER : ASTUCES ============ */
-function renderTips(){
-  let html=`<div class="general"><h3>Stratégie générale</h3><ul>${GENERAL_TIPS.map(t=>`<li>${t}</li>`).join("")}</ul></div>`;
-  [["PSY0",PSY0],["PSY1",PSY1]].forEach(([label,list])=>{
-    html+=`<div class="group"><div class="group-h"><span class="name">${label} · astuces par exercice</span><span class="rule"></span></div>`;
-    list.forEach(x=>{
-      html+=`<details class="tip"><summary>${x.n}<span class="chev">+</span></summary><div class="body"><span class="dimtag">${x.d}</span><br>${x.t} <a href="${BASE}${x.u}" target="_blank" rel="noopener">S'entraîner ↗</a></div></details>`;
-    });
-    html+=`</div>`;
-  });
-  document.getElementById("view-tips").innerHTML=html;
-}
+/* ==================================================================
+   PROGRAMME ADAPTATIF — moteur de révision
+   Recalculé en direct à partir des derniers scores saisis :
+   points faibles ↑, tests fréquents à l'examen ↑, baisse récente ↑,
+   test pas revu depuis longtemps ↑.
+   ================================================================== */
+const PHASES=[
+ {id:"A",from:"2000-01-01",to:"2026-08-09",name:"Fondations",eyebrow:"CLIMB",desc:"Installer les automatismes : calcul mental et anglais chaque jour, montée en niveau sur les tests PSY0 les plus faibles."},
+ {id:"B",from:"2026-08-10",to:"2026-08-23",name:"Intensification",eyebrow:"CRUISE",desc:"Volume maximal sur les points faibles + simulation PSY0 complète chaque samedi, en conditions réelles."},
+ {id:"C",from:"2026-08-24",to:"2026-08-30",name:"Ouverture PSY1",eyebrow:"DESCENT",desc:"Découverte des exercices PSY1 (Raven, n-back, angles…) pour élargir l'entraînement, sans lâcher le cœur PSY0."},
+ {id:"D",from:"2026-08-31",to:"2026-09-05",name:"Approche finale",eyebrow:"FINAL",desc:"On réduit la charge : annales, confiance, sommeil. Aucun exercice nouveau à moins de 72 h du test."},
+ {id:"E",from:"2026-09-06",to:"2026-10-18",name:"Cap PSY1",eyebrow:"GO-AROUND",desc:"PSY0 passés — bascule complète sur les tests PSY1, avec travail d'endurance cognitive."},
+ {id:"F",from:"2026-10-19",to:"2099-01-01",name:"PSY1 & suite",eyebrow:"TOUCHDOWN",desc:"Épreuves PSY1, puis préparation PSY2 (personnalité, épreuve de groupe, entretien)."},
+];
+function phaseFor(ds){return PHASES.find(p=>ds>=p.from&&ds<=p.to)||PHASES[PHASES.length-1];}
 
-
-/* ============ COURS CULTURE AÉRO ============ */
-const COURS=[
-{t:"Comment vole un avion — les 4 forces",b:`
-<p>Un avion en vol est soumis à <b>quatre forces</b> qui s'équilibrent :</p>
-<ul>
-<li><b>La portance</b> (lift) — générée par les ailes, dirigée vers le haut. L'aile dévie l'air vers le bas ; en réaction, l'air pousse l'aile vers le haut (3ᵉ loi de Newton), aidé par la dépression créée au-dessus du profil.</li>
-<li><b>Le poids</b> (weight) — la gravité, vers le bas.</li>
-<li><b>La poussée</b> (thrust) — fournie par les moteurs (réacteurs/turbines), vers l'avant.</li>
-<li><b>La traînée</b> (drag) — la résistance de l'air, vers l'arrière.</li>
-</ul>
-<p>En <b>vol stabilisé</b> : portance = poids, et poussée = traînée. Pour monter, on augmente la portance/poussée ; pour descendre, l'inverse.</p>
-<p><b>Les 3 axes & gouvernes :</b> <span class="key">roulis</span> (ailerons, axe longitudinal), <span class="key">tangage</span> (gouverne de profondeur, monter/descendre), <span class="key">lacet</span> (gouverne de direction). Les <b>volets</b> (flaps) augmentent la portance à basse vitesse pour le décollage et l'atterrissage.</p>`},
-
-{t:"Unités & conversions aéronautiques — les bases",b:`
-<p>L'aviation utilise des unités héritées de la marine et du monde anglo-saxon. À connaître absolument :</p>
-<ul>
-<li><b>Vitesse → le nœud</b> (knot, kt) : 1 nœud = 1 mille nautique par heure = <span class="key">1,852 km/h</span>. Un avion de ligne croise vers 450-490 kt (≈ 830-900 km/h).</li>
-<li><b>Distance → le mille nautique</b> (NM) : 1 NM = <span class="key">1,852 km</span> = 1 852 m. Le nœud et le mille nautique partagent ce même 1,852.</li>
-<li><b>Altitude → le pied</b> (foot, ft) : 1 ft = <span class="key">0,3048 m</span> (≈ 0,30 m). Vitesse verticale en pieds par minute (ft/min).</li>
-<li><b>Niveau de vol</b> (FL) = altitude en centaines de pieds : <span class="key">FL350</span> = 35 000 ft ≈ 10 700 m.</li>
-<li><b>Mach</b> (haute altitude) : rapport à la vitesse du son. Croisière typique : Mach 0,78-0,85.</li>
-<li><b>Température</b> : standard 15 °C au niveau de la mer, puis −2 °C environ par 1 000 ft en montant.</li>
-</ul>
-<p><b>Calcul rapide (sans calculette) :</b></p>
-<ul>
-<li><b>nœuds → km/h</b> : ×1,85 ≈ « double puis enlève ~7 % ». Ex. 250 kt → 500 − 37 ≈ <b>463 km/h</b>.</li>
-<li><b>km/h → nœuds</b> : ×0,54 ≈ « environ la moitié ». Ex. 900 km/h → ≈ <b>486 kt</b>.</li>
-<li><b>NM → km</b> : ×1,85 (même logique que les nœuds). <b>km → NM</b> : ×0,54.</li>
-<li><b>pieds → mètres</b> : ×0,3 (retiens « 3 pieds ≈ 1 mètre »). Ex. 36 000 ft ≈ <b>10 800 m</b>. <b>mètres → pieds</b> : ×3,3.</li>
-</ul>
-<p style="margin-top:4mm"><b>Exemple</b> — Un A320 croise à 460 kt au FL360 : vitesse ≈ 460 × 1,85 ≈ <span class="key">850 km/h</span> ; altitude = 36 000 ft × 0,3 ≈ <span class="key">10 800 m</span>.</p>`},
-
-
-{t:"Les grandes dates de l'aviation",b:`
-<ul>
-<li><b>1903</b> — Premier vol motorisé et contrôlé : les <b>frères Wright</b> (Flyer), aux États-Unis.</li>
-<li><b>1909</b> — <b>Louis Blériot</b> traverse la Manche en avion.</li>
-<li><b>Années 1920-30</b> — L'<b>Aéropostale</b> : Mermoz, Saint-Exupéry, Guillaumet transportent le courrier vers l'Afrique et l'Amérique du Sud.</li>
-<li><b>1927</b> — <b>Charles Lindbergh</b> : première traversée de l'Atlantique en solitaire sans escale (Spirit of St. Louis).</li>
-<li><b>1939</b> — Premier vol d'un avion à <b>réaction</b> (Heinkel He 178).</li>
-<li><b>1947</b> — Chuck Yeager franchit le <b>mur du son</b> (Bell X-1).</li>
-<li><b>1949-52</b> — De Havilland <b>Comet</b>, premier avion de ligne à réaction.</li>
-<li><b>1969</b> — Premiers vols du <b>Concorde</b> (supersonique franco-britannique) et du <b>Boeing 747</b> (« jumbo »).</li>
-<li><b>2005</b> — Premier vol de l'<b>Airbus A380</b>, plus gros avion de ligne du monde.</li>
-<li><b>2003</b> — Retrait du Concorde du service commercial.</li>
-</ul>`},
-
-{t:"Air France — histoire & identité",b:`
-<p><b>Air France</b> naît en <b>1933</b> de la fusion de plusieurs compagnies (dont Air Orient, Air Union, la CIDNA et l'Aéropostale). C'est la compagnie nationale historique française.</p>
-<ul>
-<li><b>Emblème</b> : la « <b>crevette</b> » — en réalité un <b>hippocampe ailé</b>, hérité d'Air Orient.</li>
-<li><b>Hub principal</b> : Paris-<b>Charles-de-Gaulle</b> (CDG).</li>
-<li><b>2004</b> : fusion avec la néerlandaise <b>KLM</b> → groupe <b>Air France-KLM</b>.</li>
-<li>Membre fondateur de l'alliance <b>SkyTeam</b> (2000).</li>
-<li>Le <b>programme Cadets</b> forme des pilotes sans expérience préalable jusqu'au poste de copilote.</li>
-</ul>`},
-
-{t:"Airbus & Boeing — les deux géants",b:`
-<p>Le marché des avions de ligne est dominé par un <b>duopole</b> :</p>
-<ul>
-<li><b>Airbus</b> — européen, siège à <b>Toulouse</b>. Gammes : <b>A320</b> (famille monocouloir A319/320/321), A330, <b>A350</b> (long-courrier), A380 (gros porteur, production arrêtée).</li>
-<li><b>Boeing</b> — américain (Seattle/Arlington). Gammes : <b>737</b> (monocouloir), 747 (« jumbo », arrêté), 777, <b>787 Dreamliner</b>.</li>
-</ul>
-<p>Un <b>cadet Air France</b> débute en général sa carrière sur <b>A320</b> ou <b>Boeing 737</b> (court et moyen-courrier).</p>`},
-
-{t:"L'organisation du transport aérien",b:`
-<ul>
-<li><b>OACI / ICAO</b> — agence de l'ONU ; fixe les normes mondiales de l'aviation civile (siège à Montréal).</li>
-<li><b>IATA</b> — association commerciale des compagnies aériennes.</li>
-<li><b>DGAC</b> — Direction générale de l'aviation civile (France). <b>EASA</b> — agence européenne (sécurité, licences, certificats médicaux).</li>
-<li><b>Contrôle aérien (ATC)</b> — guide et sépare les avions ; chaque vol suit un <b>plan de vol</b> dans des espaces aériens contrôlés.</li>
-<li><b>Alliances</b> : <b>SkyTeam</b> (Air France), Star Alliance (Lufthansa…), Oneworld (British Airways…).</li>
-</ul>`},
-
-{t:"Le métier de pilote de ligne",b:`
-<ul>
-<li><b>Équipage</b> : un <b>commandant de bord</b> (CDB) et un <b>copilote</b> (OPL). Le travail en équipage repose sur le <b>CRM</b> (Crew Resource Management) : communication, répartition des tâches, décision partagée.</li>
-<li><b>Licences</b> : <b>PPL</b> (privé) → <b>CPL</b> (professionnel) → <b>ATPL</b> (pilote de ligne), complétées d'une <b>qualification de type</b> (ex. A320).</li>
-<li><b>Aptitude médicale classe 1</b> obligatoire pour exercer.</li>
-<li><b>Maître-mot</b> : la <b>sécurité</b> prime sur tout — décision, rigueur, anticipation et humilité.</li>
-</ul>`},
-
-{t:"Notions & vocabulaire utiles",b:`
-<ul>
-<li><b>Vitesse</b> en <b>nœuds</b> (knots) : 1 nœud ≈ 1,852 km/h. Distances en <b>milles nautiques</b> (NM).</li>
-<li><b>Altitude</b> en <b>pieds</b> (feet). <b>Niveau de vol</b> (FL) : ex. <span class="key">FL350</span> = 35 000 ft.</li>
-<li><b>Alphabet OACI</b> : Alpha, Bravo, Charlie, Delta, Echo, Foxtrot… (à connaître au moins en partie).</li>
-<li><b>METAR</b> : message d'observation météo aéronautique. <b>QNH</b> : calage altimétrique (pression).</li>
-<li>L'aviation utilise l'heure <b>UTC</b> (« Zulu ») partout dans le monde.</li>
-</ul>`},
-
-{t:"Enjeux & actualité du secteur",b:`
-<ul>
-<li><b>Décarbonation</b> : carburants d'aviation durables (<b>SAF</b>), avions plus sobres, objectif de neutralité carbone visé à l'horizon 2050.</li>
-<li><b>Concurrence</b> : rivalité Airbus/Boeing, essor des compagnies low-cost et des grands transporteurs du Golfe.</li>
-<li><b>Sécurité</b> : l'aérien reste statistiquement le <b>mode de transport le plus sûr</b>.</li>
-<li>Reprise soutenue du trafic mondial après la crise du Covid.</li>
-</ul>`},
+/* --- contenus tournants des piliers quotidiens --- */
+const CM_ROT=[
+ {t:"Tables ×11→×19, carrés, compléments à 100 — fiche calcul mental p.1-2, puis 5’ de Grilles de calculs",u:"/fr/tests/grille_calculs"},
+ {t:"Fractions ↔ pourcentages ↔ décimaux — drill 15’, puis une grille chrono",u:"/fr/tests/grille_calculs"},
+ {t:"Règle de 60 & règle de descente ×3 — problèmes type pilote (fiche p.4-5)",u:null},
+ {t:"Conversions °C/°F, kt↔km/h, ft↔m + ordres de grandeur (carburant en masse !)",u:null},
+ {t:"Grilles de calculs — 3 sessions chrono d’affilée, note ta meilleure classe",u:"/fr/tests/grille_calculs"},
+ {t:"Mix général : 20 calculs variés, précision d’abord, la vitesse suivra",u:"/fr/tests/grille_calculs"},
+ {t:"Calcul mental 1 (PSY1) en éclaireur — régularité, zéro réponse au hasard",u:"/fr/tests/calcul_mental1"},
+];
+const EN_ROT=[
+ {t:"Signal words & temps verbaux — fiche anglais (grammaire) + 10 QCM",u:null},
+ {t:"Verbes irréguliers + modaux (must/should/might…) — drill rapide",u:null},
+ {t:"Test Anglais présélection sur Pilotest — note ta classe ici après",u:"/fr/tests/english"},
+ {t:"Compréhension écrite : un passage de l’annale ENAC 2017 en chrono",u:null},
+ {t:"Vocabulaire aéro + accent tonique / prononciation (fiche p. phonétique)",u:null},
+ {t:"Familles grammaticales avancées — travaille 2 des 8 familles de la fiche",u:null},
+ {t:"Écoute active 20’ : ATC live ou podcast aviation, en immersion",u:null},
+];
+const CULT_ROT=[
+ {t:"Annales 2020/2022 (Aeronet) — LE pool réutilisé : quiz en conditions, puis auto-évalue ta classe",star:true},
+ {t:"Air France-KLM : flotte, réseau, gouvernance — fiches AF + réseau interactif"},
+ {t:"Codes transpondeur & codes OACI — fiche dédiée, grille flash"},
+ {t:"Airbus vs Boeing + histoire de l’aviation — grille flash 46 items"},
 ];
 
-function renderCours(){
-  let html=`<div class="general"><h3>Culture aéronautique — l'essentiel pour les PSY0</h3><ul>
-    <li>Le test de culture aéro fait partie des PSY0 : ces fiches couvrent les bases régulièrement attendues.</li>
-    <li>Objectif : comprendre et mémoriser les grands repères, pas réciter par cœur.</li>
-    <li>Complète avec l'actualité du secteur (presse aéro, sites spécialisés) dans les semaines avant le test.</li></ul></div>`;
-  COURS.forEach((c,i)=>{
-    html+=`<details class="lesson"><summary><span><span class="ix">${String(i+1).padStart(2,'0')}</span>${c.t}</span><span class="chev">+</span></summary><div class="lbody">${c.b}</div></details>`;
+/* --- score de priorité d'un test --- */
+const P0_POOL=PSY0.filter(x=>!["p0_anglais","p0_grillescalc","p0_culture"].includes(x.id));
+const P1_POOL=PSY1.slice();
+function prevScore(id){const h=hist(id);return h.length>1?h[h.length-2].s:null;}
+function daysSince(id){const h=hist(id);if(!h.length)return null;return -daysTo(h[h.length-1].d);}
+function prioScore(x){
+  const l=last(x.id), b=best(x.id), p=prevScore(x.id);
+  let s;
+  if(l==null){ s=1.15; }                                  // jamais testé → à découvrir
+  else { const lvl=0.65*l+0.35*b; s=Math.max(0.05,(7.5-lvl)/7); } // écart à l'objectif 7, pondéré récent
+  if(l!=null&&p!=null){ if(l<p)s*=1.3; else if(l>p)s*=0.9; }      // baisse → boost, progrès → relâche
+  const ds=daysSince(x.id); if(ds!=null) s*=1+Math.min(ds,21)/30; // pas revu depuis longtemps → boost
+  s*=0.75+0.27*(x.w||2);                                          // fréquence à l'examen
+  return s;
+}
+function reasonChips(x){
+  const l=last(x.id),p=prevScore(x.id),ds=daysSince(x.id),c=[];
+  if(l==null)c.push(["à tester","amber"]);
+  else{
+    c.push(["classe "+l, l>=7?"green":l>=4?"amber":"red"]);
+    if(p!=null&&l<p)c.push(["en baisse","red"]);
+    else if(p!=null&&l===p&&l<7)c.push(["stagne","amber"]);
+  }
+  if(ds!=null&&ds>=7)c.push(["pas vu depuis "+ds+" j","amber"]);
+  if((x.w||2)>=3)c.push(["tombe souvent","gold"]);
+  return c;
+}
+function rankedPool(pool){return pool.map(x=>({x,s:prioScore(x)})).sort((a,b)=>b.s-a.s).map(o=>o.x);}
+function freqQueue(ranked,n){
+  const fr=ranked.map((t,i)=>({t,f:i===0?3:i<4?2:1})); const q=[];
+  while(q.length<n){
+    let added=false;
+    for(const o of fr){ if(o.f>0&&q.length<n){q.push(o.t);o.f--;added=true;} }
+    if(!added)fr.forEach(o=>o.f=1);
+  }
+  return q;
+}
+function takeNext(q,used){
+  for(let i=0;i<q.length;i++){ if(!used.has(q[i].id)) return q.splice(i,1)[0]; }
+  return q.shift()||null;
+}
+
+/* --- gabarit d'une journée selon la phase (0=lundi … 6=dimanche) --- */
+function dayTemplate(ph,i,ds){
+  const cm ={k:"cm",dur:20}, cm15={k:"cm",dur:15}, en={k:"en",dur:20}, en15={k:"en",dur:15};
+  const p0 ={k:"p0",dur:25}, p1={k:"p1",dur:25}, cult={k:"cult",dur:25};
+  const B=(...a)=>a.map(o=>Object.assign({},o));
+  if(ph==="A"){
+    if(i===1||i===4) return B(cm,en,cult,p0);
+    if(i===6)        return B(cm,en,{k:"cult",dur:20},p0);   // dimanche allégé
+    return B(cm,en,p0,p0);
+  }
+  if(ph==="B"){
+    if(i===2) return B(cm15,en,{k:"cult",dur:30},p0);
+    if(i===5) return B({k:"sim",dur:90});
+    if(i===6) return B(cm15,en,{k:"cult",dur:25},p0);
+    return B(cm15,en,p0,p0);
+  }
+  if(ph==="C"){
+    if(i===2) return B(cm15,en15,{k:"cult",dur:30},p1);
+    if(i===5) return B({k:"sim",dur:90});
+    if(i===6) return B(cm15,{k:"annales",dur:35},p1);
+    return B(cm15,en15,p0,p1);
+  }
+  if(ph==="D"){
+    if(ds==="2026-08-31") return B(cm15,en15,{k:"annales",dur:30},p0);
+    if(ds==="2026-09-01") return B({k:"sim",dur:90,final:true});
+    if(ds==="2026-09-02") return B(cm15,en15,{k:"annales",dur:30});
+    if(ds==="2026-09-03") return B({k:"rest",dur:20});
+    if(ds==="2026-09-04"||ds==="2026-09-05") return B({k:"jourj",dur:0});
+    return B(cm15,en15,{k:"annales",dur:30});
+  }
+  if(ph==="E"){
+    if(i===5) return B({k:"chain",dur:100});
+    if(i===6) return B(cm15,en15,p1,p1);
+    return B(cm15,p1,p1,p1);
+  }
+  return B({k:"info",dur:0});
+}
+
+/* --- construction d'une semaine complète --- */
+function mondayOf(d){const t=new Date(d);t.setHours(0,0,0,0);const dow=(t.getDay()+6)%7;t.setDate(t.getDate()-dow);return t;}
+function addDays(d,n){const t=new Date(d);t.setDate(t.getDate()+n);return t;}
+function isoD(d){const p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());}
+function buildWeek(monday){
+  const days=[]; let n0=0,n1=0;
+  for(let i=0;i<7;i++){
+    const d=addDays(monday,i), ds=isoD(d), ph=phaseFor(ds);
+    const blocks=dayTemplate(ph.id,i,ds);
+    blocks.forEach(b=>{if(b.k==="p0")n0++;if(b.k==="p1")n1++;});
+    days.push({ds,d,ph,blocks,idx:i});
+  }
+  const q0=freqQueue(rankedPool(P0_POOL),Math.max(n0,1));
+  const q1=freqQueue(rankedPool(P1_POOL),Math.max(n1,1));
+  days.forEach(day=>{
+    const used=new Set();
+    day.blocks.forEach(b=>{
+      if(b.k==="p0")b.test=takeNext(q0,used);
+      if(b.k==="p1")b.test=takeNext(q1,used);
+      if(b.test)used.add(b.test.id);
+    });
   });
-  document.getElementById("view-cours").innerHTML=html;
+  return days;
+}
+
+/* --- rendu d'un bloc --- */
+const KIND_LABEL={cm:"Calcul mental",en:"Anglais",cult:"Culture aéro",annales:"Annales culture",p0:"Test PSY0",p1:"Test PSY1",sim:"Simulation",chain:"Endurance",rest:"Repos",jourj:"Jour J",info:"Info"};
+function chipHtml(c){return '<span class="rz '+c[1]+'">'+c[0]+'</span>';}
+function blockHtml(b,ds,bi){
+  const key=ds+"#"+bi, done=!!DB.done[key];
+  const dn=Math.floor(new Date(ds+"T00:00:00").getTime()/86400000);
+  let title="",link="",chips="";
+  if(b.k==="cm"){const r=CM_ROT[dn%CM_ROT.length];title=r.t;if(r.u)link=r.u;}
+  else if(b.k==="en"){const r=EN_ROT[dn%EN_ROT.length];title=r.t;if(r.u)link=r.u;}
+  else if(b.k==="cult"){const r=CULT_ROT[dn%CULT_ROT.length];title=r.t;if(r.star)chips=chipHtml(["pool réutilisé","gold"]);}
+  else if(b.k==="annales")title="Annales culture 2020/2022 — passage complet en chrono, corrige et note les manques";
+  else if(b.k==="p0"||b.k==="p1"){
+    if(b.test){title=b.test.n;if(b.test.u)link=b.test.u;chips=reasonChips(b.test).map(chipHtml).join("");}
+    else title="Test au choix parmi tes priorités";
+  }
+  else if(b.k==="sim")title=(b.final?"DERNIÈRE simulation PSY0 — le matin si possible. ":"Simulation PSY0 complète — ")+"enchaîne tous les tests dans l'ordre, conditions réelles (pièce calme, chrono), note chaque classe";
+  else if(b.k==="chain")title="Enchaînement complet PSY1 — tous les tests d'affilée pour l'endurance cognitive";
+  else if(b.k==="rest")title="Repos actif : 20’ de relecture de fiches max. Logistique (ordi paramétré, pièce calme, pièce d'identité) + sommeil ++";
+  else if(b.k==="jourj")title="PSY0 — JOUR J. Échauffement léger (2 grilles faciles), respiration, confiance. Tu as fait le travail. 🍀";
+  else if(b.k==="info")title="Sélection en cours — consulte tes convocations. Bon courage !";
+  const durTxt=b.dur?b.dur+"’":"—";
+  return '<div class="blk '+(done?"done":"")+'">'
+    +'<input type="checkbox" data-done="'+key+'" '+(done?"checked":"")+'>'
+    +'<span class="dur">'+durTxt+'</span>'
+    +'<div class="bmain"><span class="kind">'+KIND_LABEL[b.k]+(b.test?' · '+b.test.d:'')+'</span>'
+    +'<div class="bt">'+title+(link?' <a href="'+BASE+link+'" target="_blank" rel="noopener">ouvrir ↗</a>':'')+'</div>'
+    +(chips?'<div class="chips">'+chips+'</div>':'')+'</div></div>';
+}
+
+/* --- carte "séance du jour" (dashboard) --- */
+function streak(){
+  let n=0; const t=new Date(); t.setHours(0,0,0,0);
+  const doneDays=new Set(Object.keys(DB.done).map(k=>k.split("#")[0]));
+  let d=new Date(t);
+  if(!doneDays.has(isoD(d))) d=addDays(d,-1);           // la journée en cours ne casse pas la série
+  while(doneDays.has(isoD(d))){ n++; d=addDays(d,-1); }
+  return n;
+}
+function todayCard(){
+  const t=new Date(); const ds=isoD(t);
+  const week=buildWeek(mondayOf(t));
+  const day=week.find(x=>x.ds===ds); if(!day)return "";
+  const tot=day.blocks.reduce((a,b)=>a+(b.dur||0),0);
+  const doneN=day.blocks.filter((b,i)=>DB.done[ds+"#"+i]).length;
+  const st=streak();
+  return '<div class="block today-sess"><div class="ts-head"><h3>Séance du jour · '+fmtDate(ds)+'</h3>'
+    +'<span class="ts-meta">'+day.ph.name+' · '+tot+'’ · '+doneN+'/'+day.blocks.length+' fait'+(st>1?' · 🔥 '+st+' j de suite':'')+'</span></div>'
+    +day.blocks.map((b,i)=>blockHtml(b,ds,i)).join("")
+    +'<div class="ts-foot"><span class="golink" data-goto="prog">Voir le programme de la semaine →</span></div></div>';
+}
+
+/* --- rendu de l'onglet Programme --- */
+let progWeekOffset=0;
+const DAY_NAMES=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
+function renderProg(){
+  const base=mondayOf(addDays(new Date(),progWeekOffset*7));
+  const week=buildWeek(base);
+  const ph=week[3].ph;                                   // phase dominante (jeudi)
+  const tds=isoD(new Date());
+  const wkDone=week.reduce((a,d)=>a+d.blocks.filter((b,i)=>DB.done[d.ds+"#"+i]).length,0);
+  const wkTot=week.reduce((a,d)=>a+d.blocks.length,0);
+  const top=rankedPool(P0_POOL.concat(phaseFor(tds).id>="C"?P1_POOL:[])).slice(0,3);
+  let html='<div class="phasebar"><div><span class="eyebrow">PHASE '+ph.id+' · '+ph.eyebrow+'</span>'
+    +'<div class="ph-name">'+ph.name+'</div><div class="ph-desc">'+ph.desc+'</div></div>'
+    +'<div class="wknav"><button class="wbtn" data-wk="-1">‹</button><button class="wbtn" data-wk="0">cette semaine</button><button class="wbtn" data-wk="1">›</button></div></div>'
+    +'<div class="progress-top"><div class="pbar"><i style="width:'+(wkTot?wkDone/wkTot*100:0)+'%"></i></div><span class="pn">'+wkDone+'/'+wkTot+' blocs</span></div>'
+    +'<div class="focusrow"><span class="kind">Focus de la semaine :</span> '
+    +top.map(x=>'<span class="focusit">'+x.n+' '+reasonChips(x).slice(0,2).map(chipHtml).join("")+'</span>').join("")+'</div>';
+  week.forEach(day=>{
+    const isToday=day.ds===tds, past=day.ds<tds;
+    const tot=day.blocks.reduce((a,b)=>a+(b.dur||0),0);
+    html+='<div class="daycard '+(isToday?"today":"")+' '+(past?"past":"")+'">'
+      +'<div class="day-h"><span class="dn2">'+DAY_NAMES[day.idx]+' '+fmtDate(day.ds)+(isToday?' · aujourd\'hui':'')+'</span>'
+      +'<span class="dtot">'+(tot?tot+' min':'')+'</span></div>'
+      +day.blocks.map((b,i)=>blockHtml(b,day.ds,i)).join("")+'</div>';
+  });
+  html+='<div class="general" style="margin-top:18px"><h3>Comment ce programme est calculé</h3><ul>'
+   +'<li><b>Points faibles d\'abord :</b> plus ta dernière classe est loin de l\'objectif 7, plus le test revient souvent. Un test jamais noté est traité comme prioritaire.</li>'
+   +'<li><b>Fréquence à l\'examen :</b> les tests qui tombent le plus aux PSY0 d\'après les débriefs candidats (séries, cubes, grilles, M2 back, psychomoteur, anglais, culture) sont sur-pondérés.</li>'
+   +'<li><b>Dernières tendances :</b> une classe en baisse re-booste le test ; un test pas revu depuis 7 jours et plus remonte dans la pile.</li>'
+   +'<li><b>Piliers fixes :</b> calcul mental et anglais tous les jours (tes deux chantiers), culture aéro 2–3 fois par semaine avec priorité absolue aux annales 2020/2022.</li>'
+   +'<li><b>PSY1 dès le 24 août :</b> les exercices PSY1 entrent au programme pour varier les formats — très utile aussi pour les PSY0.</li>'
+   +'<li>Note chaque classe dans les onglets PSY0/PSY1 (et la culture via sa carte PSY0) : le planning se réorganise immédiatement.</li></ul></div>'
+   +'<p class="note">Cases à cocher = blocs faits (sauvegarde auto). Le samedi de simulation remplace la séance normale : c\'est la répétition générale hebdomadaire.</p>';
+  document.getElementById("view-prog").innerHTML=html;
 }
 
 /* ============ RENDER : PLANNING ============ */
@@ -619,28 +770,30 @@ function renderCheck(){
 }
 
 /* ============ ÉVÉNEMENTS / INTERACTIONS ============ */
-function renderAll(){renderCountdowns();renderDash();renderPhase(PSY0,document.getElementById("view-psy0"));renderPhase(PSY1,document.getElementById("view-psy1"));renderTips();renderCours();renderPlan();renderCheck();}
+function renderAll(){renderCountdowns();renderDash();renderPhase(PSY0,document.getElementById("view-psy0"));renderPhase(PSY1,document.getElementById("view-psy1"));renderProg();renderPlan();renderCheck();}
+function switchTab(v){document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===v));document.querySelectorAll(".panel-view").forEach(p=>p.classList.toggle("active",p.id==="view-"+v));window.scrollTo({top:0,behavior:"smooth"});}
 
 document.getElementById("tabs").addEventListener("click",e=>{
-  const b=e.target.closest(".tab"); if(!b)return;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  document.querySelectorAll(".panel-view").forEach(v=>v.classList.remove("active"));
-  b.classList.add("active");
-  document.getElementById("view-"+b.dataset.view).classList.add("active");
+  const b=e.target.closest(".tab"); if(!b)return; switchTab(b.dataset.view);
 });
 
 document.body.addEventListener("click",e=>{
+  const g=e.target.closest("[data-goto]"); if(g){switchTab(g.dataset.goto);return;}
+  const wn=e.target.closest("[data-wk]");
+  if(wn){const v=parseInt(wn.dataset.wk); progWeekOffset=v===0?0:progWeekOffset+v; renderProg(); return;}
   const log=e.target.closest("[data-log]");
-  if(log){ armedClear=null; logScore(log.dataset.log,parseInt(log.dataset.s)); renderDash(); rerenderPhases(); return; }
+  if(log){ armedClear=null; logScore(log.dataset.log,parseInt(log.dataset.s)); renderDash(); rerenderPhases(); renderProg(); return; }
   const clr=e.target.closest("[data-clear]");
   if(clr){ armedClear=clr.dataset.clear; rerenderPhases(); return; }
   const yes=e.target.closest("[data-doclear]");
-  if(yes){ clearScores(yes.dataset.doclear); armedClear=null; renderDash(); rerenderPhases(); return; }
+  if(yes){ clearScores(yes.dataset.doclear); armedClear=null; renderDash(); rerenderPhases(); renderProg(); return; }
   const no=e.target.closest("[data-cancelclear]");
   if(no){ armedClear=null; rerenderPhases(); return; }
 });
 
 document.body.addEventListener("change",e=>{
+  const dnc=e.target.closest("[data-done]");
+  if(dnc){ if(e.target.checked)DB.done[dnc.dataset.done]=1; else delete DB.done[dnc.dataset.done]; save(); renderProg(); renderDash(); return; }
   const c=e.target.closest("[data-check]");
   if(c){ DB.check[c.dataset.check]=c.checked; save(); renderCheck(); return; }
   if(e.target.id==="medDate"){ DB.medical=e.target.value; save(); renderCheck(); renderPlan(); renderCountdowns(); }
@@ -650,8 +803,30 @@ let resetArmed=false; const resetBtn=document.getElementById("resetAll");
 resetBtn.addEventListener("click",()=>{
   if(!resetArmed){ resetArmed=true; resetBtn.textContent="↺ Confirmer la réinitialisation ?"; resetBtn.style.color="var(--red)";
     setTimeout(()=>{resetArmed=false;resetBtn.textContent="↺ Tout réinitialiser";resetBtn.style.color="";},4000); return; }
-  DB={scores:{},check:{},medical:""}; CHECK_ITEMS.forEach(c=>{if(c.def)DB.check[c.id]=true;}); DB._init=true; armedClear=null; save(); renderAll();
+  DB={scores:{},check:{},medical:"",done:{}}; CHECK_ITEMS.forEach(c=>{if(c.def)DB.check[c.id]=true;}); DB._init=true; armedClear=null; save(); renderAll();
   resetArmed=false; resetBtn.textContent="↺ Tout réinitialiser"; resetBtn.style.color="";
+});
+
+/* ============ EXPORT / IMPORT (sauvegarde des scores) ============ */
+document.getElementById("expBtn").addEventListener("click",()=>{
+  const blob=new Blob([JSON.stringify(DB,null,2)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="sauvegarde_psy0_"+today()+".json"; a.click(); URL.revokeObjectURL(a.href);
+});
+document.getElementById("impBtn").addEventListener("click",()=>document.getElementById("impFile").click());
+document.getElementById("impFile").addEventListener("change",e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const d=JSON.parse(r.result);
+      if(!d||typeof d!=="object"||!d.scores) throw 0;
+      DB=d; DB.scores=DB.scores||{}; DB.check=DB.check||{}; DB.done=DB.done||{}; if(DB.medical==null)DB.medical="";
+      save(); renderAll(); alert("Sauvegarde importée — scores, programme et check-list restaurés.");
+    }catch(_){ alert("Fichier invalide : choisis un export .json généré par cette page."); }
+    e.target.value="";
+  };
+  r.readAsText(f);
 });
 
 /* ============ INIT ============ */
