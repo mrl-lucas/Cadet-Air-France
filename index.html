@@ -294,7 +294,7 @@ const PSY0=[
  {id:"p0_m2back",w:3,n:"M2 Back numérique",d:"Mémoire",u:"/fr/tests/m2back_numerique",t:"Mémoire de travail : répète mentalement la séquence glissante. Commence lentement, accélère."},
  {id:"p0_psychomot",w:3,n:"Psychomoteur psy0 AF",d:"Psychomoteur",u:"/fr/tests/psychomot0",t:"Anticipe la trajectoire plutôt que de réagir ; reste détendu et entraîne-toi régulièrement."},
  {id:"p0_anglais",w:3,n:"Anglais présélection",d:"Anglais",u:"/fr/tests/english",t:"Révise grammaire + vocabulaire courant et aéronautique. Lis/écoute en anglais chaque jour."},
- {id:"p0_culture",w:3,n:"Culture aéronautique",d:"Culture aéro",u:null,t:"Priorité absolue aux annales 2020/2022 (pool de questions réutilisé). Fais un quiz d'annales en conditions, puis auto-évalue-toi en classe 1–9 ici : le programme s'adapte."},
+ {id:"p0_culture",w:3,n:"Culture aéronautique",d:"Culture aéro",u:null,t:"Priorité absolue aux annales 2020/2022 (pool réutilisé) — PDF maître Culture aéro §12-14, ou en flashcards NotebookLM (QCM 4 options, 15 s). Quiz en conditions, puis auto-évalue-toi en classe 1–9 ici : le programme s'adapte."},
  {id:"p0_culture",n:"Culture aéronautique",d:"Culture aéro",u:"/fr/blog/test_culture_aeronautique_cadets_air_france",t:"Bases : constructeurs, principes de vol, histoire d'Air France, métier de pilote, actualité du secteur."},
 ];
 const PSY1=[
@@ -332,6 +332,9 @@ const GENERAL_TIPS=[
  "Enchaîne régulièrement tous les tests PSY1 d'affilée pour travailler ton endurance cognitive.",
  "Aux PSY1, Air France impose un seuil minimal par dimension (en 2018 : verbal ≥3, psychomoteur & spatial ≥5, autres ≥4) — ne néglige aucune dimension.",
  "Tu peux passer les PSY0 jusqu'à 3 fois : un échec analysé n'enlève rien à ta capacité à devenir pilote.",
+ "Ferme le PDF plus souvent que tu ne l'ouvres : la sensation de facilité en relecture est une illusion de fluidité — se tester retient ~2x mieux.",
+ "Après une erreur, ne relis pas la correction : RE-GÉNÈRE la bonne réponse, puis reteste-la à J+2 et J+7 (carnet d'erreurs).",
+ "Barème +3/−1 sur 4 options : le hasard pur est neutre, mais éliminer UNE seule option rend la réponse strictement gagnante. Ne laisse jamais une question où tu peux écarter une réponse.",
 ];
 
 /* ============ ÉVÉNEMENTS / DATES ============ */
@@ -497,10 +500,10 @@ function renderDash(){
    test pas revu depuis longtemps ↑.
    ================================================================== */
 const PHASES=[
- {id:"A",from:"2000-01-01",to:"2026-08-09",name:"Fondations",eyebrow:"CLIMB",desc:"Installer les automatismes : calcul mental et anglais chaque jour, montée en niveau sur les tests PSY0 les plus faibles."},
- {id:"B",from:"2026-08-10",to:"2026-08-23",name:"Intensification",eyebrow:"CRUISE",desc:"Volume maximal sur les points faibles + simulation PSY0 complète chaque samedi, en conditions réelles."},
- {id:"C",from:"2026-08-24",to:"2026-08-30",name:"Ouverture PSY1",eyebrow:"DESCENT",desc:"Découverte des exercices PSY1 (Raven, n-back, angles…) pour élargir l'entraînement, sans lâcher le cœur PSY0."},
- {id:"D",from:"2026-08-31",to:"2026-09-05",name:"Approche finale",eyebrow:"FINAL",desc:"On réduit la charge : annales, confiance, sommeil. Aucun exercice nouveau à moins de 72 h du test."},
+ {id:"A",from:"2000-01-01",to:"2026-08-09",name:"Fondations",eyebrow:"CLIMB",desc:"Installer les automatismes en RAPPEL ACTIF (jamais en relecture) : calcul et anglais chaque jour, cycle J+2/J+7 via le carnet d'erreurs. Jalons annales du samedi : série A 2022 (sem. du 27/07), série B 2022 (sem. du 03/08)."},
+ {id:"B",from:"2026-08-10",to:"2026-08-23",name:"Intensification",eyebrow:"CRUISE",desc:"Volume maximal sur les points faibles + simulation PSY0 chaque samedi en conditions. Jalons : annale 2020 (sem. du 10/08), puis REFAIRE la série A — objectif 24/24 (sem. du 17/08)."},
+ {id:"C",from:"2026-08-24",to:"2026-08-30",name:"Ouverture PSY1",eyebrow:"DESCENT",desc:"Découverte des exercices PSY1 (Raven, n-back, angles…) sans lâcher le cœur PSY0. Jalon : refaire série B et 2020 — objectif 26/26 et 40/40. Dernière grande simulation le samedi 29."},
+ {id:"D",from:"2026-08-31",to:"2026-09-05",name:"Approche finale",eyebrow:"FINAL",desc:"Survol léger uniquement : grilles flash, carnet d'erreurs, chiffres volatils (flotte, dirigeants) re-vérifiés une fois à J-3. Le sommeil consolide mieux que le bourrage. Aucun exercice nouveau à moins de 72 h."},
  {id:"E",from:"2026-09-06",to:"2026-10-18",name:"Cap PSY1",eyebrow:"GO-AROUND",desc:"PSY0 passés — bascule complète sur les tests PSY1, avec travail d'endurance cognitive."},
  {id:"F",from:"2026-10-19",to:"2099-01-01",name:"PSY1 & suite",eyebrow:"TOUCHDOWN",desc:"Épreuves PSY1, puis préparation PSY2 (personnalité, épreuve de groupe, entretien)."},
 ];
@@ -508,28 +511,28 @@ function phaseFor(ds){return PHASES.find(p=>ds>=p.from&&ds<=p.to)||PHASES[PHASES
 
 /* --- contenus tournants des piliers quotidiens --- */
 const CM_ROT=[
- {t:"Tables ×11→×19, carrés, compléments à 100 — fiche calcul mental p.1-2, puis 5’ de Grilles de calculs",u:"/fr/tests/grille_calculs"},
- {t:"Fractions ↔ pourcentages ↔ décimaux — drill 15’, puis une grille chrono",u:"/fr/tests/grille_calculs"},
- {t:"Règle de 60 & règle de descente ×3 — problèmes type pilote (fiche p.4-5)",u:null},
- {t:"Conversions °C/°F, kt↔km/h, ft↔m + ordres de grandeur (carburant en masse !)",u:null},
- {t:"Grilles de calculs — 3 sessions chrono d’affilée, note ta meilleure classe",u:"/fr/tests/grille_calculs"},
- {t:"Mix général : 20 calculs variés, précision d’abord, la vitesse suivra",u:"/fr/tests/grille_calculs"},
+ {t:"Tables + carrés + les 6 cases pièges (6×7, 7×8, 8×9…) — PDF maître Calcul §1, à voix haute, puis 5’ de Grilles de calculs",u:"/fr/tests/grille_calculs"},
+ {t:"Fractions ↔ % + techniques rapides (compensation, carrés en 5, ×11) — PDF Calcul §3-4, série ENTREMÊLÉE de 20 chrono",u:"/fr/tests/grille_calculs"},
+ {t:"Règle des 60, règle du 3 de descente, Vi→Vp — PDF Calcul §7-9, problèmes type pilote de tête",u:null},
+ {t:"La table UNIQUE de conversions (PDF Calcul §5) en aller-retour + °C/°F — carburant toujours en masse !",u:null},
+ {t:"Les 6 automatismes des annales (virages mod 360, vents/pistes, fuseaux, n=1/cos) — PDF Calcul §11 : 5-7 questions garanties le jour J",u:null},
+ {t:"Mix général ENTREMÊLÉ : 20 calculs de tous types mélangés, jamais en blocs — précision d’abord, la vitesse suivra",u:"/fr/tests/grille_calculs"},
  {t:"Calcul mental 1 (PSY1) en éclaireur — régularité, zéro réponse au hasard",u:"/fr/tests/calcul_mental1"},
 ];
 const EN_ROT=[
- {t:"Signal words & temps verbaux — fiche anglais (grammaire) + 10 QCM",u:null},
- {t:"Verbes irréguliers + modaux (must/should/might…) — drill rapide",u:null},
+ {t:"Signal words & temps verbaux — fiche anglais + 10 QCM en flashcards NotebookLM (réponse générée AVANT de regarder)",u:null},
+ {t:"Verbes irréguliers + modaux (must/should/might…) — drill rapide, cartes ratées → carnet d’erreurs (retour J+2)",u:null},
  {t:"Test Anglais présélection sur Pilotest — note ta classe ici après",u:"/fr/tests/english"},
- {t:"Compréhension écrite : un passage de l’annale ENAC 2017 en chrono",u:null},
- {t:"Vocabulaire aéro + accent tonique / prononciation (fiche p. phonétique)",u:null},
- {t:"Familles grammaticales avancées — travaille 2 des 8 familles de la fiche",u:null},
- {t:"Écoute active 20’ : ATC live ou podcast aviation, en immersion",u:null},
+ {t:"Compréhension écrite chrono : passage ENAC 2017 ou 40 q / 30 min format 2022 — gère le temps, pas de timer visible le jour J",u:null},
+ {t:"Accent tonique par règles de SUFFIXES + vocabulaire aéro — c’est du rappel de règle, pas de l’oreille",u:null},
+ {t:"Familles grammaticales avancées — 2 des 8 familles, en quiz NotebookLM plutôt qu’en relecture",u:null},
+ {t:"Écoute active 20’ : ATC live ou podcast aviation — format 2026 = listening/reading/speaking intégré",u:null},
 ];
 const CULT_ROT=[
- {t:"Annales 2020/2022 (Aeronet) — LE pool réutilisé : quiz en conditions, puis auto-évalue ta classe",star:true},
- {t:"Air France-KLM : flotte, réseau, gouvernance — fiches AF + réseau interactif"},
- {t:"Codes transpondeur & codes OACI — fiche dédiée, grille flash"},
- {t:"Airbus vs Boeing + histoire de l’aviation — grille flash 46 items"},
+ {t:"Annales 2020/2022 (PDF maître Culture aéro §12-14) — LE pool réutilisé : série en conditions 15 s/question, auto-évalue ta classe",star:true},
+ {t:"PDF maître Air France : flotte, réseau, gouvernance + fiche flash finale (cache la colonne réponse) + réseau interactif"},
+ {t:"PDF maître Culture aéro : 1 section en Q/R actif (réponses cachées) + codes transpondeur/OACI en grille flash"},
+ {t:"PDF maître Histoire : grille flash 46 items + les 5 pièges — toute réponse > 3 s retourne au carnet d’erreurs"},
 ];
 
 /* --- score de priorité d'un test --- */
@@ -578,31 +581,32 @@ function takeNext(q,used){
 function dayTemplate(ph,i,ds){
   const cm ={k:"cm",dur:20}, cm15={k:"cm",dur:15}, en={k:"en",dur:20}, en15={k:"en",dur:15};
   const p0 ={k:"p0",dur:25}, p1={k:"p1",dur:25}, cult={k:"cult",dur:25};
+  const rev={k:"rev",dur:10};
   const B=(...a)=>a.map(o=>Object.assign({},o));
   if(ph==="A"){
-    if(i===1||i===4) return B(cm,en,cult,p0);
-    if(i===6)        return B(cm,en,{k:"cult",dur:20},p0);   // dimanche allégé
-    return B(cm,en,p0,p0);
+    if(i===1||i===4) return B(rev,cm15,en15,cult,p0);
+    if(i===6)        return B(rev,cm15,en15,{k:"cult",dur:20},p0);   // dimanche allégé
+    return B(rev,cm15,en15,p0,p0);
   }
   if(ph==="B"){
-    if(i===2) return B(cm15,en,{k:"cult",dur:30},p0);
+    if(i===2) return B(rev,cm15,en15,{k:"cult",dur:30},p0);
     if(i===5) return B({k:"sim",dur:90});
-    if(i===6) return B(cm15,en,{k:"cult",dur:25},p0);
-    return B(cm15,en,p0,p0);
+    if(i===6) return B(rev,cm15,en15,{k:"cult",dur:25},p0);
+    return B(rev,cm15,en15,p0,p0);
   }
   if(ph==="C"){
-    if(i===2) return B(cm15,en15,{k:"cult",dur:30},p1);
+    if(i===2) return B(rev,cm15,en15,{k:"cult",dur:30},p1);
     if(i===5) return B({k:"sim",dur:90});
-    if(i===6) return B(cm15,{k:"annales",dur:35},p1);
-    return B(cm15,en15,p0,p1);
+    if(i===6) return B(rev,cm15,{k:"annales",dur:35},p1);
+    return B(rev,cm15,en15,p0,p1);
   }
   if(ph==="D"){
-    if(ds==="2026-08-31") return B(cm15,en15,{k:"annales",dur:30},p0);
+    if(ds==="2026-08-31") return B(rev,cm15,en15,{k:"annales",dur:30},p0);
     if(ds==="2026-09-01") return B({k:"sim",dur:90,final:true});
-    if(ds==="2026-09-02") return B(cm15,en15,{k:"annales",dur:30});
+    if(ds==="2026-09-02") return B(rev,cm15,en15,{k:"annales",dur:30});
     if(ds==="2026-09-03") return B({k:"rest",dur:20});
     if(ds==="2026-09-04"||ds==="2026-09-05") return B({k:"jourj",dur:0});
-    return B(cm15,en15,{k:"annales",dur:30});
+    return B(rev,cm15,en15,{k:"annales",dur:30});
   }
   if(ph==="E"){
     if(i===5) return B({k:"chain",dur:100});
@@ -638,13 +642,14 @@ function buildWeek(monday){
 }
 
 /* --- rendu d'un bloc --- */
-const KIND_LABEL={cm:"Calcul mental",en:"Anglais",cult:"Culture aéro",annales:"Annales culture",p0:"Test PSY0",p1:"Test PSY1",sim:"Simulation",chain:"Endurance",rest:"Repos",jourj:"Jour J",info:"Info"};
+const KIND_LABEL={rev:"Réactivation espacée",cm:"Calcul mental",en:"Anglais",cult:"Culture aéro",annales:"Annales culture",p0:"Test PSY0",p1:"Test PSY1",sim:"Simulation",chain:"Endurance",rest:"Repos",jourj:"Jour J",info:"Info"};
 function chipHtml(c){return '<span class="rz '+c[1]+'">'+c[0]+'</span>';}
 function blockHtml(b,ds,bi){
   const key=ds+"#"+bi, done=!!DB.done[key];
   const dn=Math.floor(new Date(ds+"T00:00:00").getTime()/86400000);
   let title="",link="",chips="";
-  if(b.k==="cm"){const r=CM_ROT[dn%CM_ROT.length];title=r.t;if(r.u)link=r.u;}
+  if(b.k==="rev"){title="Carnet d'erreurs : 2-3 points vus il y a 2-7 jours, DE MÉMOIRE d'abord (fiche fermée), puis flashcards NotebookLM des thèmes dus. Erreur persistante → reprogrammée à J+2";chips=chipHtml(["J+2 / J+7","gold"]);}
+  else if(b.k==="cm"){const r=CM_ROT[dn%CM_ROT.length];title=r.t;if(r.u)link=r.u;}
   else if(b.k==="en"){const r=EN_ROT[dn%EN_ROT.length];title=r.t;if(r.u)link=r.u;}
   else if(b.k==="cult"){const r=CULT_ROT[dn%CULT_ROT.length];title=r.t;if(r.star)chips=chipHtml(["pool réutilisé","gold"]);}
   else if(b.k==="annales")title="Annales culture 2020/2022 — passage complet en chrono, corrige et note les manques";
@@ -714,10 +719,14 @@ function renderProg(){
       +day.blocks.map((b,i)=>blockHtml(b,day.ds,i)).join("")+'</div>';
   });
   html+='<div class="general" style="margin-top:18px"><h3>Comment ce programme est calculé</h3><ul>'
+   +'<li><b>Tester &gt; relire :</b> un seul acte de rappel actif retient ~2x mieux que la relecture (Roediger &amp; Karpicke 2006). Chaque bloc se fait fiche FERMÉE d\'abord ; NotebookLM sert à te poser des questions, jamais à résumer.</li>'
+   +'<li><b>Espacer &gt; masser :</b> le bloc quotidien "Réactivation espacée" fait revenir chaque point à J+2 puis J+7 via le carnet d\'erreurs — l\'intervalle optimal à 6 semaines de l\'examen (Cepeda 2008).</li>'
+   +'<li><b>Mélanger &gt; bloquer :</b> les séries de calcul sont entremêlées (~+43% à un test différé, Rohrer &amp; Taylor). Si la séance est confortable, elle est probablement inutile (Bjork, difficultés désirables).</li>'
+   +'<li><b>Supports uniques :</b> les 5 PDF maîtres dédupliqués (Calcul, Culture aéro + annales, Air France, Histoire, Programme) + la fiche anglais — chargés dans NotebookLM, anciens fichiers retirés du notebook.</li>'
    +'<li><b>Points faibles d\'abord :</b> plus ta dernière classe est loin de l\'objectif 7, plus le test revient souvent. Un test jamais noté est traité comme prioritaire.</li>'
    +'<li><b>Fréquence à l\'examen :</b> les tests qui tombent le plus aux PSY0 d\'après les débriefs candidats (séries, cubes, grilles, M2 back, psychomoteur, anglais, culture) sont sur-pondérés.</li>'
    +'<li><b>Dernières tendances :</b> une classe en baisse re-booste le test ; un test pas revu depuis 7 jours et plus remonte dans la pile.</li>'
-   +'<li><b>Piliers fixes :</b> calcul mental et anglais tous les jours (tes deux chantiers), culture aéro 2–3 fois par semaine avec priorité absolue aux annales 2020/2022.</li>'
+   +'<li><b>Piliers fixes :</b> calcul mental et anglais tous les jours (tes deux chantiers), culture aéro 2–3 fois par semaine avec priorité absolue aux annales 2020/2022 (le pool est réutilisé).</li>'
    +'<li><b>PSY1 dès le 24 août :</b> les exercices PSY1 entrent au programme pour varier les formats — très utile aussi pour les PSY0.</li>'
    +'<li>Note chaque classe dans les onglets PSY0/PSY1 (et la culture via sa carte PSY0) : le planning se réorganise immédiatement.</li></ul></div>'
    +'<p class="note">Cases à cocher = blocs faits (sauvegarde auto). Le samedi de simulation remplace la séance normale : c\'est la répétition générale hebdomadaire.</p>';
